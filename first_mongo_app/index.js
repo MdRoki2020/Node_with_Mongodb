@@ -11,7 +11,8 @@ MongoClient.connect(URL,config,function (error,MyMongoClient) {
     else{
         console.log("Connection Success");
 
-       InsertData(MyMongoClient);
+    // InsertData(MyMongoClient);
+    FindAllData(MyMongoClient);
     }
 });
 
@@ -28,6 +29,14 @@ function InsertData(MyMongoClient){
         else{
             console.log("Data Insert Success");
         }
+    })
+ }
+
+ function FindAllData(MyMongoClient){
+    var MyDataBase=MyMongoClient.db("School");
+    var MyCollection=MyDataBase.collection("student");
+    MyCollection.find().toArray((err,result)=>{
+        console.log(result);
     })
  }
  
