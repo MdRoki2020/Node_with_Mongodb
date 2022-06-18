@@ -12,7 +12,8 @@ MongoClient.connect(URL,config,function (error,MyMongoClient) {
         console.log("Connection Success");
 
     // InsertData(MyMongoClient);
-    FindAllData(MyMongoClient);
+    // FindAllData(MyMongoClient);
+    FindAllDataBySort(MyMongoClient)
     }
 });
 
@@ -36,6 +37,16 @@ function InsertData(MyMongoClient){
     var MyDataBase=MyMongoClient.db("School");
     var MyCollection=MyDataBase.collection("student");
     MyCollection.find().toArray((err,result)=>{
+        console.log(result);
+    })
+ }
+
+ function FindAllDataBySort(MyMongoClient){
+    var MyDataBase=MyMongoClient.db('School');
+    var MyCollection=MyDataBase.collection('student');
+
+    var sortPattern={Roll:1};
+    MyCollection.find().sort(sortPattern).toArray((err,result)=>{
         console.log(result);
     })
  }
