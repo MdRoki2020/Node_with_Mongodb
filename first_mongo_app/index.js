@@ -45,7 +45,7 @@ function InsertData(MyMongoClient){
     var MyDataBase=MyMongoClient.db('School');
     var MyCollection=MyDataBase.collection('student');
 
-    var sortPattern={Roll:1};
+    var sortPattern={Roll:1}; // 1 means small to large nd -1 means learge to small sorting
     MyCollection.find().sort(sortPattern).toArray((err,result)=>{
         console.log(result);
     })
