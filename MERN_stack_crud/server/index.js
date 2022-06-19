@@ -11,6 +11,17 @@ app.get('/insert',async(req,res)=>{
     res.send("Insert Data");
 });
 
+app.get('/read',async(req,res)=>{
+    friendModel.find({}, (err,result)=>{
+        if(err){
+            res.send(err);
+        }else{
+            res.send(result)
+        }
+    });
+
+});
+
 
 app.listen(3001,()=>{
     console.log("you are connected");
