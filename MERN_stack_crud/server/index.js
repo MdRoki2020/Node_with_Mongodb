@@ -1,14 +1,22 @@
 const express=require('express');
 const app=express();
+const cors=require('cors');
 const mongoose=require('mongoose');
-const friendModel=require('./models/friends')
+const friendModel=require('./models/friends');
+
+app.use(cors());
+app.use(express.json()); //middleware
 
 mongoose.connect("mongodb://localhost:27017/MERN_stack?readPreference=primary&appname=MongoDB%20Compass&ssl=false",{useNewUrlParser:true});
 
-app.get('/insert',async(req,res)=>{
-    const friends=new friendModel({name:"usha",age:20});
+app.post('/addFriend',async(req,res)=>{
+
+    const name=req.body.name;
+    const age=req.body.age;
+
+    const friends=new friendModel({name:name,age:age});
     await friends.save();
-    res.send("Insert Data");
+    res.send("Data Insert Successfull");
 });
 
 app.get('/read',async(req,res)=>{
@@ -16,10 +24,9 @@ app.get('/read',async(req,res)=>{
         if(err){
             res.send(err);
         }else{
-            res.send(result)
+            res.send(result);
         }
     });
-
 });
 
 
