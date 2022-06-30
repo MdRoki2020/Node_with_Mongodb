@@ -28,6 +28,16 @@ export default function Home() {
         });
     }
 
+    const deleteFriend=(id)=>{
+        Axios.delete(`http://localhost:3001/delete/${id}`).then(()=>{
+            setListOfFriends(
+                listOfFriends.filter((value)=>{
+                    return value._id != id;
+                })
+            )
+        })
+    }
+
     useEffect(()=>{
         Axios.get("http://localhost:3001/read").then((response)=>{
             setListOfFriends(response.data);
@@ -78,7 +88,7 @@ export default function Home() {
                 <td>{value._id}</td>
                 <td>{value.name}</td>
                 <td>{value.age}</td>
-                <td><button className='btn btn-info' onClick={()=>{updateFriend(value._id)}}>Edit</button> <button className='btn btn-danger'>Delete</button></td>
+                <td><button className='btn btn-info' onClick={()=>{updateFriend(value._id)}}>Edit</button> <button className='btn btn-danger' onClick={()=>{deleteFriend(value._id)}}>Delete</button></td>
               </tr>
               )
           }
