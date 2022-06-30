@@ -17,6 +17,17 @@ export default function Home() {
         })
     }
 
+    const updateFriend=(id)=>{
+        const newAge=prompt("Enter New Age: ");
+        Axios.put('http://localhost:3001/update',{newAge:newAge,id:id}).then(()=>{
+            setListOfFriends(listOfFriends.map((value)=>{
+                return value._id == id
+                 ? {_id: id, name: value.name, age:newAge}
+                  : value
+            }))
+        });
+    }
+
     useEffect(()=>{
         Axios.get("http://localhost:3001/read").then((response)=>{
             setListOfFriends(response.data);
@@ -67,7 +78,7 @@ export default function Home() {
                 <td>{value._id}</td>
                 <td>{value.name}</td>
                 <td>{value.age}</td>
-                {/* <td><Link to={"/contactUpdate/"+value.id}><button className='btn btn-info'>Edit</button></Link> <button onClick={()=>{deleteData(value.id)}} className='btn btn-danger'>Delete</button></td> */}
+                <td><button className='btn btn-info' onClick={()=>{updateFriend(value._id)}}>Edit</button> <button className='btn btn-danger'>Delete</button></td>
               </tr>
               )
           }
