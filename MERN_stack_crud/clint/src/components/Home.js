@@ -12,6 +12,8 @@ export default function Home() {
         Axios.post('http://localhost:3001/addfriend',{
             name:name,
             age:age,
+        }).then(()=>{
+            setListOfFriends([...listOfFriends,{name:name,age:age}])
         })
     }
 
@@ -27,7 +29,7 @@ export default function Home() {
     <div className='container'>
         <div className='row'>
             <div className='col-md-4'>
-                <h2>________ !</h2>
+                <h2>Signup !</h2>
             <Form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Enter Name</Form.Label>
